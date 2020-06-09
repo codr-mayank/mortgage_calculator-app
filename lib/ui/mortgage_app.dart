@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:mortgage_payment_starter_app/util/colors.dart';
+
 class MortgageApp extends StatefulWidget {
   @override
   _MortgageAppState createState() => _MortgageAppState();
@@ -15,7 +17,7 @@ class _MortgageAppState extends State<MortgageApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: ()=>{},
+        onPressed: () => {},
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
@@ -29,127 +31,156 @@ class _MortgageAppState extends State<MortgageApp> {
             Container(
               height: 130,
               child: Card(
+                color: secondaryDeepPurple,
                 elevation: 5,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text("Monthly Payment"),
+                    Text(
+                      "Monthly Payment",
+                      style: TextStyle(
+                        color: secondaryBackgroundWhite,
+                      ),
+                    ),
                     SizedBox(height: 9),
                     Text(
-                        " ${(_homePrice > 0 && _interest > 0.0) ? "\$${calculateMonthlyPayment(_homePrice, _interest, _lengthOfLoan)}" : ""}")
+                      " ${(_homePrice > 0 && _interest > 0.0) ? "\$${calculateMonthlyPayment(_homePrice, _interest, _lengthOfLoan)}" : ""}",
+                      style: TextStyle(
+                        color: secondaryBackgroundWhite,
+                      ),
+                    )
                   ],
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  border: Border.all(
-                      color: Colors.blueGrey.shade100, //TODO: theme this!
-                      style: BorderStyle.solid // //TODO: theme this!
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Container(
+                margin: EdgeInsets.only(top: 20),
+                decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(
+                        color:
+                            secondaryDeepPurple, //Theme.of(context).primaryColorDark, // Colors.blueGrey.shade100, //TODO: theme this!
+                        style: BorderStyle.solid // //TODO: theme this!
+                        ),
+                    borderRadius: BorderRadius.circular(12)),
+                child: Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Column(
+                    children: <Widget>[
+                      TextField(
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        // style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                            hintText: "Home Price",
+                            prefixIcon: Icon(Icons.home)),
+                        onChanged: (String value) {
+                          try {
+                            _homePrice = double.parse(value);
+                          } catch (exception) {
+                            _homePrice = 0.0;
+                          }
+                        }, //TODO: theme this!
                       ),
-                  borderRadius: BorderRadius.circular(12)),
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  children: <Widget>[
-                    TextField(
-                      keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
-                      style: TextStyle(color: Colors.black), //TODO: theme this!
-                      decoration: InputDecoration(
-                          prefixText: "Home Price",
-                          prefixIcon: Icon(Icons.home)),
-                      onChanged: (String value) {
-                        try {
-                          _homePrice = double.parse(value);
-                        } catch (exception) {
-                          _homePrice = 0.0;
-                        }
-                      }, //TODO: theme this!
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text("Length of Loan (years)"), //TODO: Theme this!
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text("Length of Loan (years)"), //TODO: Theme this!
 
-                        Row(
-                          children: <Widget>[
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  if (_lengthOfLoan > 0) {
-                                    _lengthOfLoan -= 5;
-                                  } else {
-                                    // do nothing
-                                  }
-                                });
-                              },
-                              child: Container(
-                                width: 40,
-                                height: 40,
-                                margin: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: Colors.blueGrey.withOpacity(0.2)),
-                                child: Center(
-                                    child: Text("-")), //TODO: Style Theme it!
-                              ),
-                            ),
-                            Text("$_lengthOfLoan"), //TODO: Style Theme it!
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _lengthOfLoan += 5;
-                                });
-                              },
-                              child: Container(
+                          Row(
+                            children: <Widget>[
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    if (_lengthOfLoan > 0) {
+                                      _lengthOfLoan -= 5;
+                                    } else {
+                                      // do nothing
+                                    }
+                                  });
+                                },
+                                child: Container(
                                   width: 40,
                                   height: 40,
                                   margin: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                      color: Colors.blueGrey.withOpacity(0.2),
-                                      borderRadius: BorderRadius.circular(16)),
+                                      borderRadius: BorderRadius.circular(16),
+                                      color:
+                                          secondaryDeepPurple), // Colors.blueGrey.withOpacity(0.2)),
                                   child: Center(
-                                      child: Text("+")) //TODO: theme this!
+                                      child: Text(
+                                    "-",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: secondaryBackgroundWhite,
+                                    ),
+                                  )),
+                                ),
+                              ),
+                              Text("$_lengthOfLoan"), //TODO: Style Theme it!
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    _lengthOfLoan += 5;
+                                  });
+                                },
+                                child: Container(
+                                    width: 40,
+                                    height: 40,
+                                    margin: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        color:
+                                            secondaryDeepPurple, // Colors.blueGrey.withOpacity(0.2),
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    child: Center(
+                                        child: Text(
+                                      "+",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: secondaryBackgroundWhite,
+                                      ),
+                                    ))),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
 
-                                  ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
+                      //Interest
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text("Interest"), ////TODO: theme this!
+                          Padding(
+                              padding: EdgeInsets.all(18),
+                              child: Text("${_interest.toStringAsFixed(2)} %"))
+                        ],
+                      ),
 
-                    //Interest
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text("Interest"), ////TODO: theme this!
-                        Padding(
-                            padding: EdgeInsets.all(18),
-                            child: Text("${_interest.toStringAsFixed(2)} %"))
-                      ],
-                    ),
-
-                    //Slider
-                    Column(
-                      children: <Widget>[
-                        Slider(
-                            min: 0.0,
-                            max: 10.0,
-                            activeColor: Colors.red, //TODO: Theme this!
-                            inactiveColor: Colors.grey, //TODO: Theme this!
-                            // divisions: 10,
-                            value: _interest,
-                            onChanged: (double newValue) {
-                              setState(() {
-                                _interest = newValue;
-                              });
-                            })
-                      ],
-                    )
-                  ],
+                      //Slider
+                      Column(
+                        children: <Widget>[
+                          Slider(
+                              min: 0.0,
+                              max: 10.0,
+                              activeColor: Theme.of(context)
+                                  .primaryColor, //TODO: Theme this!
+                              inactiveColor:
+                                  primaryIndigoDark, //TODO: Theme this!
+                              // divisions: 10,
+                              value: _interest,
+                              onChanged: (double newValue) {
+                                setState(() {
+                                  _interest = newValue;
+                                });
+                              })
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             )

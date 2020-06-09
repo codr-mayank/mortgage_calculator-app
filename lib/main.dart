@@ -28,12 +28,14 @@ ThemeData _buildMortgageTheme() {
 }
 
 _buildMortgageTextTheme(TextTheme base) {
-  return base.copyWith(
-    body1: TextStyle(
-      color: textOnPrimaryBlack,
-      fontSize: 16,
-    ),
-  );
+  return base
+      .copyWith(
+        body1: TextStyle(
+          color: textOnPrimaryBlack,
+          fontSize: 16,
+        ),
+      )
+      .apply(fontFamily: "Rubik");
 }
 
 void main() => runApp(new MaterialApp(
