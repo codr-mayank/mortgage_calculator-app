@@ -9,6 +9,6 @@ const secondaryDeepPurple = const Color(0xFF673ab7);
 const secondaryPurpleLight = const Color(0xFF9a67ea);
 const secondaryPurpleDark = const Color(0xff320b86);
 
-const textOnPrimary = const Color(0xff000000);
+const textOnPrimaryBlack = const Color(0xff000000);
 const textOnSecondaryWhite = const Color(0xffffffff);
 const secondaryBackgroundWhite = const Color(0xffffffff);
